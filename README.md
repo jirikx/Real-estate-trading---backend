@@ -9,4 +9,4 @@ Uživatel bude moct vytvořit vlastní inzerát kde nabízí bydlení, a pokud b
 ### Popis komplexního dotazu v serverové části
 Nalezení všech uživatelů, kteří na stránce prodali nemovitosti v Praze v celkové hodnotě přes 20 miliónů.
 
-[Schéma entit a jejich vztahů v aplikaci](/scheme.png "Schéma")
+[Schéma entit a jejich vztahů v aplikaci](scheme.png "Schéma")
