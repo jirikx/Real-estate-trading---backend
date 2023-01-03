@@ -1,17 +1,15 @@
 package cz.cvut.fit.tjv.backend.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-@Table(name="users_table")
-public class User {
+@Table(name="app_users")
+public class User implements Serializable {
     @Id
     private Long id;
-
-    @Column(name="real_name")
     private String realName;
-
     private String email;
 
     @OneToMany(mappedBy = "author")
@@ -23,4 +21,6 @@ public class User {
         this.email = email;
         this.myOffers = myOffers;
     }
+
+    public User() {}
 }
