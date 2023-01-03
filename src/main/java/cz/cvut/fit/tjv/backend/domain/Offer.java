@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "offer_poly", discriminatorType = DiscriminatorType.INTEGER)
 public class Offer implements CommonEntity<Long> {
     @Id
     @GeneratedValue
@@ -28,13 +30,11 @@ public class Offer implements CommonEntity<Long> {
     @OneToOne
     private InformationPart offerInfo;
 
-    public Offer(Long id, User author, Long price, String description, OfferType offerType) {
-        this.id = id;
+    public Offer(User author, Long price, String description) {
         this.author = author;
         this.price = price;
         this.description = description;
         this.isClosed = false;
-        this.offerType = offerType;
     }
 
     public Offer() {}
@@ -48,4 +48,63 @@ public class Offer implements CommonEntity<Long> {
         isClosed = true;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
+    }
+
+    public OfferType getOfferType() {
+        return offerType;
+    }
+
+    public void setOfferType(OfferType offerType) {
+        this.offerType = offerType;
+    }
+
+    public Set<User> getFavouritedBy() {
+        return favouritedBy;
+    }
+
+    public void setFavouritedBy(Set<User> favouritedBy) {
+        this.favouritedBy = favouritedBy;
+    }
+
+    public InformationPart getOfferInfo() {
+        return offerInfo;
+    }
+
+    public void setOfferInfo(InformationPart offerInfo) {
+        this.offerInfo = offerInfo;
+    }
 }
