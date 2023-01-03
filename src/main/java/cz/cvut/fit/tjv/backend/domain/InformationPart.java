@@ -3,11 +3,12 @@ package cz.cvut.fit.tjv.backend.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.net.URI;
 import java.sql.Date;
 
 @Entity
-public class InformationPart {
+public class InformationPart implements CommonEntity<URI> {
     @Id
     private URI uri;
     private Date creationTime;
@@ -26,4 +27,9 @@ public class InformationPart {
     }
 
     public InformationPart() {}
+
+    @Override
+    public URI getId() {
+        return uri;
+    }
 }

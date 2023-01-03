@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Offer {
+public class Offer implements CommonEntity<Long> {
     @Id
     @GeneratedValue
     private Long id;
@@ -17,23 +17,35 @@ public class Offer {
     private Long price;
     private String description;
     private boolean isClosed;
+    private OfferType offerType;
     @ManyToMany
     @JoinTable(
-            name = "favourites",
-            joinColumns = @JoinColumn(name = "offer_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+            name = "favourited_by_users",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "offer_id")
     )
-    private final Set<User> favourite = new HashSet<>();
+    private Set<User> favouritedBy;
     @OneToOne
     private InformationPart offerInfo;
 
-    public Offer(Long id, User author, Long price, String description) {
+    public Offer(Long id, User author, Long price, String description, OfferType offerType) {
         this.id = id;
         this.author = author;
         this.price = price;
         this.description = description;
         this.isClosed = false;
+        this.offerType = offerType;
     }
 
     public Offer() {}
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public void closeOffer() {
+        isClosed = true;
+    }
+
 }
