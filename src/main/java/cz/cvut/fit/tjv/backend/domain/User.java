@@ -13,12 +13,12 @@ public class User implements CommonEntity<Long> {
     private Long id;
     private String realName;
     private String email;
-    @OneToMany(mappedBy = "author")
-    private Collection<Offer> myOpenOffers;
-    @OneToMany(mappedBy = "author")
-    private Collection<Offer> myClosedOffers;
-    @ManyToMany(mappedBy = "favouritedBy")
-    private Set<Offer> favouriteOffers;
+
+    public User(Long id, String realName, String email, Collection<Offer> myOffers, Set<Offer> favouriteOffers) {
+        this.id = id;
+        this.realName = realName;
+        this.email = email;
+    }
 
     public User(String realName, String email) {
         this.realName = realName;
@@ -32,28 +32,12 @@ public class User implements CommonEntity<Long> {
         return id;
     }
 
-    public boolean addOfferToFavs(Offer offer) {
-        return favouriteOffers.add(offer);
-    }
-
     public String getRealName() {
         return realName;
     }
 
     public String getEmail() {
         return email;
-    }
-
-    public Collection<Offer> getMyOpenOffers() {
-        return myOpenOffers;
-    }
-
-    public Collection<Offer> getMyClosedOffers() {
-        return myClosedOffers;
-    }
-
-    public Set<Offer> getFavouriteOffers() {
-        return favouriteOffers;
     }
 
     public void setId(Long id) {
@@ -68,15 +52,12 @@ public class User implements CommonEntity<Long> {
         this.email = email;
     }
 
-    public void setMyOpenOffers(Collection<Offer> myOpenOffers) {
-        this.myOpenOffers = myOpenOffers;
-    }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-    public void setMyClosedOffers(Collection<Offer> myClosedOffers) {
-        this.myClosedOffers = myClosedOffers;
-    }
+        User user = (User) o;
 
-    public void setFavouriteOffers(Set<Offer> favouriteOffers) {
-        this.favouriteOffers = favouriteOffers;
+        return getId() != null ? getId().equals(user.getId()) : user.getId() == null;
     }
 }

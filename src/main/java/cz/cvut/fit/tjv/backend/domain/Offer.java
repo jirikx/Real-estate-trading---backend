@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "offer_poly", discriminatorType = DiscriminatorType.INTEGER)
 public class Offer implements CommonEntity<Long> {
     @Id
     @GeneratedValue
@@ -17,7 +15,6 @@ public class Offer implements CommonEntity<Long> {
     @JoinColumn(name = "author_username")
     private User author;
     private Long price;
-    private String description;
     private boolean isClosed;
     private OfferType offerType;
     @ManyToMany
@@ -30,10 +27,9 @@ public class Offer implements CommonEntity<Long> {
     @OneToOne
     private InformationPart offerInfo;
 
-    public Offer(User author, Long price, String description) {
+    public Offer(User author, Long price) {
         this.author = author;
         this.price = price;
-        this.description = description;
         this.isClosed = false;
     }
 
@@ -66,14 +62,6 @@ public class Offer implements CommonEntity<Long> {
 
     public void setPrice(Long price) {
         this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public boolean isClosed() {
