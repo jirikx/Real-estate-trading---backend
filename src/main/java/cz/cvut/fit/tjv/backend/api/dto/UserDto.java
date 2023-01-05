@@ -8,8 +8,14 @@ public class UserDto {
     private Long id;
     private String realName;
     private String email;
-    private Collection<Long> myOffers;
-    private Set<Long> favouriteOffers;
+
+    public UserDto(Long id, String realName, String email, Collection<Long> myOffers, Set<Long> favouriteOffers) {
+        this.id = id;
+        this.realName = realName;
+        this.email = email;
+    }
+
+    public UserDto() {}
 
     public Long getId() {
         return id;
@@ -33,21 +39,5 @@ public class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Collection<Long> getMyOffers() {
-        return myOffers;
-    }
-
-    public void setMyOffers(Collection<Long> myOffers) {
-        this.myOffers = myOffers;
-    }
-
-    public Set<Long> getFavouriteOffers() {
-        return favouriteOffers;
-    }
-
-    public void setFavouriteOffers(Set<Long> favouriteOffers) {
-        this.favouriteOffers = favouriteOffers;
     }
 }

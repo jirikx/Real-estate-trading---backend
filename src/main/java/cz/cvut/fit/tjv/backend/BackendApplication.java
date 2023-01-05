@@ -16,9 +16,6 @@ public class BackendApplication {
 		System.out.println("Hello world :)");
 		User tomasNovak = new User("Tomas Novak", "tomas@novak.cz");
 		User janStary = new User("Jan Stary", "jan@stary.cz");
-
-		Offer offer = new Offer(tomasNovak, 1000L, "Popis objednavky");
-		janStary.addOfferToFavs(offer);
 	}
 
 }

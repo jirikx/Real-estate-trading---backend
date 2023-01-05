@@ -1,4 +1,4 @@
-package cz.cvut.fit.tjv.backend.business;
+package cz.cvut.fit.tjv.backend.service;
 
 import cz.cvut.fit.tjv.backend.domain.User;
 import cz.cvut.fit.tjv.backend.repository.UserRepository;

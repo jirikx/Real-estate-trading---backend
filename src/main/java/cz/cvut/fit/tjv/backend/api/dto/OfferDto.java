@@ -9,9 +9,8 @@ import java.util.Set;
 
 public class OfferDto {
     private Long id;
-    private User author;
+    private Long author;
     private Long price;
-    private String description;
     private boolean isClosed;
     private OfferType offerType;
     private Set<Long> favouritedBy;
@@ -25,11 +24,11 @@ public class OfferDto {
         this.id = id;
     }
 
-    public User getAuthor() {
+    public Long getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Long author) {
         this.author = author;
     }
 
@@ -39,14 +38,6 @@ public class OfferDto {
 
     public void setPrice(Long price) {
         this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public boolean isClosed() {

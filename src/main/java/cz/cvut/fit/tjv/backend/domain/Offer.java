@@ -27,6 +27,13 @@ public class Offer implements CommonEntity<Long> {
     @OneToOne
     private InformationPart offerInfo;
 
+    public Offer(Long id, User author, Long price) {
+        this.id = id;
+        this.author = author;
+        this.price = price;
+        this.isClosed = false;
+    }
+
     public Offer(User author, Long price) {
         this.author = author;
         this.price = price;

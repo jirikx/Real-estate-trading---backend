@@ -1,11 +1,10 @@
-package cz.cvut.fit.tjv.backend.business;
+package cz.cvut.fit.tjv.backend.service;
 
 import cz.cvut.fit.tjv.backend.domain.CommonEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
 
 /**
  * Common class for CRUD operations with entities

@@ -26,10 +26,62 @@ public class InformationPart implements CommonEntity<URI> {
         this.acreage = acreage;
     }
 
+    public InformationPart(URI uri) {
+        this.uri = uri;
+    }
+
     public InformationPart() {}
 
     @Override
     public URI getId() {
         return uri;
+    }
+
+    public URI getUri() {
+        return uri;
+    }
+
+    public void setUri(URI uri) {
+        this.uri = uri;
+    }
+
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public Date getMoveInDate() {
+        return moveInDate;
+    }
+
+    public void setMoveInDate(Date moveInDate) {
+        this.moveInDate = moveInDate;
+    }
+
+    public Long getAcreage() {
+        return acreage;
+    }
+
+    public void setAcreage(Long acreage) {
+        this.acreage = acreage;
     }
 }
