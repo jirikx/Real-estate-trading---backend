@@ -16,12 +16,9 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/offers")
-public class OfferController {
-    private OfferService offerService;
-    private final OfferMapper offerMapper;
+public class OfferController extends CommonCrudController<Offer, OfferDto, Long> {
 
-    public OfferController(OfferService offerService, UserService userService, InformationPartService informationPartService) {
-        this.offerService = offerService;
-        this.offerMapper = new OfferMapper(userService, informationPartService);
+    public OfferController(OfferService offerService, OfferMapper offerMapper) {
+        super(offerService, offerMapper);
     }
 }
