@@ -16,6 +16,8 @@ public class OfferDto {
     private Set<Long> favouritedBy;
     private String offerInfo;
 
+    public OfferDto() {}
+
     public Long getId() {
         return id;
     }

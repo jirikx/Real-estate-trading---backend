@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.backend.api.dto;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.net.URI;
 import java.sql.Date;
 
@@ -10,6 +11,8 @@ public class InformationPartDto {
     private String postalCode;
     private String moveInDate;
     private Long acreage;
+
+    public InformationPartDto() {}
 
     public String getUri() {
         return uri;

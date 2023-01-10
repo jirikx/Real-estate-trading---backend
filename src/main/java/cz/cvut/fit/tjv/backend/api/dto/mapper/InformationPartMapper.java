@@ -7,11 +7,9 @@ import org.springframework.stereotype.Component;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 @Component
-public class InformationPartMapper {
+public class InformationPartMapper implements CommonMapper<InformationPart, InformationPartDto> {
     public InformationPartDto toDto(InformationPart informationPart) {
         InformationPartDto informationPartDto = new InformationPartDto();
         informationPartDto.setUri(informationPart.getUri().toString());

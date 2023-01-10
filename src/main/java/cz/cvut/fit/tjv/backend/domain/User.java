@@ -9,10 +9,17 @@ import java.util.Set;
 @Table(name="app_users")
 public class User implements CommonEntity<Long> {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String realName;
     private String email;
+    @ManyToMany
+    @JoinTable(
+        name = "favourited_by_users",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "offer_id")
+    )
+    Set<Offer> favouriteOffers;
 
     public User(Long id, String realName, String email) {
         this.id = id;
@@ -50,6 +57,14 @@ public class User implements CommonEntity<Long> {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Offer> getFavouriteOffers() {
+        return favouriteOffers;
+    }
+
+    public void setFavouriteOffers(Set<Offer> favouriteOffers) {
+        this.favouriteOffers = favouriteOffers;
     }
 
     public boolean equals(Object o) {

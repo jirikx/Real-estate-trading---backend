@@ -16,9 +16,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class OfferMapper {
-    private UserService userService;
-    private InformationPartService informationPartService;
+public class OfferMapper implements CommonMapper<Offer, OfferDto> {
+    private final UserService userService;
+    private final InformationPartService informationPartService;
 
     public OfferMapper(UserService userService, InformationPartService informationPartService) {
         this.userService = userService;
@@ -33,17 +33,24 @@ public class OfferMapper {
         offerDto.setClosed(offerDto.isClosed());
         offerDto.setOfferType(offer.getOfferType());
         offerDto.setFavouritedBy(offer.getFavouritedBy().stream().map(User::getId).collect(Collectors.toSet()));    //TODO: test this
-        offerDto.setOfferInfo(offer.getOfferInfo().getId().toString());
+        if (offer.getOfferInfo() != null)
+            offerDto.setOfferInfo(offer.getOfferInfo().getId().toString());
 
         return offerDto;
     }
 
-    private Offer toEntity(OfferDto offerDto) throws URISyntaxException {
-        Offer offer = new Offer(offerDto.getId(), userService.readById(offerDto.getId()), offerDto.getPrice());
+    public Offer toEntity(OfferDto offerDto) throws URISyntaxException {
+        Offer offer;
+        if (offerDto.getId() == null)
+            offer = new Offer(userService.readById(offerDto.getAuthor()), offerDto.getPrice());
+        else
+            offer = new Offer(offerDto.getId(), userService.readById(offerDto.getAuthor()), offerDto.getPrice());
+
         offer.setClosed(offerDto.isClosed());
         offer.setOfferType(offerDto.getOfferType());
         offer.setFavouritedBy(offerDto.getFavouritedBy().stream().map(userService::readById).collect(Collectors.toSet()));
-        offer.setOfferInfo(informationPartService.readById(new URI(offerDto.getOfferInfo())));
+        if (offerDto.getOfferInfo() != null)
+            offer.setOfferInfo(informationPartService.readById(new URI(offerDto.getOfferInfo())));
 
         return offer;
     }

@@ -9,20 +9,16 @@ import java.util.Set;
 @Entity
 public class Offer implements CommonEntity<Long> {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "author_username")
     private User author;
     private Long price;
     private boolean isClosed;
+    @Enumerated(EnumType.ORDINAL)
     private OfferType offerType;
-    @ManyToMany
-    @JoinTable(
-            name = "favourited_by_users",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "offer_id")
-    )
+    @ManyToMany(mappedBy = "favouriteOffers")
     private Set<User> favouritedBy;
     @OneToOne
     private InformationPart offerInfo;

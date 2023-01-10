@@ -5,6 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+import java.util.Collection;
 
 /**
  * Common class for CRUD operations with entities
@@ -19,8 +21,6 @@ public abstract class CommonCrudService<Entity extends CommonEntity<Key>, Key> {
     }
 
     public Entity create(Entity entity) {
-        if (crudRepository.existsById(entity.getId()))
-            throw new EntityExistsException();
         return crudRepository.save(entity);
     }
 
@@ -28,8 +28,8 @@ public abstract class CommonCrudService<Entity extends CommonEntity<Key>, Key> {
         return crudRepository.findById(id).orElseThrow();
     }
 
-    public Iterable<Entity> readAll() {
-        return crudRepository.findAll();
+    public Collection<Entity> readAll() {
+        return (Collection<Entity>) crudRepository.findAll();
     }
 
     public Entity update(Entity entity) {
