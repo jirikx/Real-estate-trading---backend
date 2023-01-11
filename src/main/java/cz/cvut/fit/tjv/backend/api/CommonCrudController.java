@@ -16,8 +16,8 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public abstract class CommonCrudController<Entity extends CommonEntity<ID>, Dto, ID> {
-    private CommonCrudService<Entity, ID> service;
-    private CommonMapper<Entity, Dto> mapper;
+    protected CommonCrudService<Entity, ID> service;
+    protected CommonMapper<Entity, Dto> mapper;
 
     public CommonCrudController(CommonCrudService<Entity, ID> service, CommonMapper<Entity, Dto> mapper) {
         this.service = service;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/infopart")
+@RequestMapping("${apiPrefix}/infopart")
 public class InformationPartController extends CommonCrudController<InformationPart, InformationPartDto, URI> {
     public InformationPartController(InformationPartService informationPartService, InformationPartMapper informationPartMapper) {
         super(informationPartService, informationPartMapper);

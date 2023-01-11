@@ -3,6 +3,7 @@ package cz.cvut.fit.tjv.backend.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -66,6 +67,15 @@ public class User implements CommonEntity<Long> {
     public void setFavouriteOffers(Set<Offer> favouriteOffers) {
         this.favouriteOffers = favouriteOffers;
     }
+
+    public void addFavouriteOffer(Offer offer) {
+        favouriteOffers.add(Objects.requireNonNull(offer));
+    }
+
+    public void removeFavouriteOffer(Offer offer) {
+        favouriteOffers.remove(Objects.requireNonNull(offer));
+    }
+
 
     public boolean equals(Object o) {
         if (this == o) return true;

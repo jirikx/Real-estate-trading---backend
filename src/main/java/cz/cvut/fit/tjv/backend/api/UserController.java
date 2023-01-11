@@ -1,8 +1,11 @@
 package cz.cvut.fit.tjv.backend.api;
 
+import cz.cvut.fit.tjv.backend.api.dto.OfferDto;
 import cz.cvut.fit.tjv.backend.api.dto.UserDto;
+import cz.cvut.fit.tjv.backend.api.dto.mapper.OfferMapper;
 import cz.cvut.fit.tjv.backend.api.dto.mapper.UserMapper;
 import cz.cvut.fit.tjv.backend.domain.User;
+import cz.cvut.fit.tjv.backend.service.OfferService;
 import cz.cvut.fit.tjv.backend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,64 +14,51 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
-    private final UserService service;
-    private final UserMapper userMapper;
+@RequestMapping("${apiPrefix}/users")
+public class UserController extends CommonCrudController<User, UserDto, Long> {
+    private final OfferMapper offerMapper;
 
-    public UserController(UserService service, UserMapper userMapper) {
-        this.service = service;
-        this.userMapper = userMapper;
+    public UserController(UserService service, UserMapper mapper, OfferMapper offerMapper) {
+        super(service, mapper);
+        this.offerMapper = offerMapper;
     }
 
-    @PostMapping
+    @PostMapping("/{userId}/favs/{offerId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody UserDto userDto) {
+    public void addFavouriteOffer(@PathVariable Long userId, @PathVariable Long offerId) {
         try {
-            service.create(userMapper.toEntity(userDto));
-        } catch (EntityExistsException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't create duplicated user.");
-        }
-    }
-
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public UserDto read(@PathVariable Long id) {
-        try {
-            User user = service.readById(id);
-            return userMapper.toDto(user);
+            UserService userService = (UserService) service;
+            userService.addFavouriteOffer(userId, offerId);
         } catch (NoSuchElementException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with given id wasn't found.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User or offer doesn't exist.");
         }
     }
 
-    @GetMapping()
+    @DeleteMapping("/{userId}/favs/{offerId}")
     @ResponseStatus(HttpStatus.OK)
-    public Collection<UserDto> readAll() {
-        return service.readAll().stream().map(userMapper::toDto).collect(Collectors.toSet());
-    }
-
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody UserDto userDto, @PathVariable Long id) {
+    public void removeFavouriteOffer(@PathVariable Long userId, @PathVariable Long offerId) {
         try {
-            service.update(userMapper.toEntity(userDto));
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't update nonexistent user.");
+            UserService userService = (UserService) service;
+            userService.removeFavouriteOffer(userId, offerId);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User or offer doesn't exist.");
         }
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/{userId}/favs")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public List<OfferDto> readFavouritesFromUser(@PathVariable Long userId) {
         try {
-            service.delete(id);
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't delete nonexistent user.");
+            UserService userService = (UserService) service;
+            User user = userService.readById(userId);
+            return userService.favouriteOffersFromUser(user).stream().map(offerMapper::toDto).collect(Collectors.toList());
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't return favourite offers from nonexistent user.");
         }
     }
 
