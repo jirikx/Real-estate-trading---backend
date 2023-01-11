@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.net.URI;
 
 @Service
-public class InformationPartService extends CommonCrudService<InformationPart, URI> {
+public class InformationPartService extends CommonCrudService<InformationPart, Long> {
     public InformationPartService (InformationPartRepository informationPartRepository) {
         super(informationPartRepository);
     }

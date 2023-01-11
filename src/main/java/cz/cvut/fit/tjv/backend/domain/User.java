@@ -77,6 +77,7 @@ public class User implements CommonEntity<Long> {
     }
 
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -84,5 +85,10 @@ public class User implements CommonEntity<Long> {
         User user = (User) o;
 
         return getId() != null ? getId().equals(user.getId()) : user.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

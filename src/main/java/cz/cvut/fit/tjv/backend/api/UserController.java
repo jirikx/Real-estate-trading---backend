@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -60,6 +61,13 @@ public class UserController extends CommonCrudController<User, UserDto, Long> {
         } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't return favourite offers from nonexistent user.");
         }
+    }
+
+    @GetMapping("/rich")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserDto> readRichUsers() {
+        UserService userService = (UserService) service;
+        return userService.usersWhoSoldPropertiesInMoreThanGivenPriceInPrague(20L).stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
 

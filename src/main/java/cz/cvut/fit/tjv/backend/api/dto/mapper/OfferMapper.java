@@ -1,18 +1,12 @@
 package cz.cvut.fit.tjv.backend.api.dto.mapper;
 
 import cz.cvut.fit.tjv.backend.api.dto.OfferDto;
-import cz.cvut.fit.tjv.backend.domain.InformationPart;
 import cz.cvut.fit.tjv.backend.domain.Offer;
-import cz.cvut.fit.tjv.backend.domain.OfferType;
 import cz.cvut.fit.tjv.backend.domain.User;
 import cz.cvut.fit.tjv.backend.service.InformationPartService;
 import cz.cvut.fit.tjv.backend.service.UserService;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -34,12 +28,12 @@ public class OfferMapper implements CommonMapper<Offer, OfferDto> {
         offerDto.setOfferType(offer.getOfferType());
         offerDto.setFavouritedBy(offer.getFavouritedBy().stream().map(User::getId).collect(Collectors.toSet()));    //TODO: test this
         if (offer.getOfferInfo() != null)
-            offerDto.setOfferInfo(offer.getOfferInfo().getId().toString());
+            offerDto.setOfferInfo(offer.getOfferInfo().getUri());
 
         return offerDto;
     }
 
-    public Offer toEntity(OfferDto offerDto) throws URISyntaxException {
+    public Offer toEntity(OfferDto offerDto) {
         Offer offer;
         if (offerDto.getId() == null)
             offer = new Offer(userService.readById(offerDto.getAuthor()), offerDto.getPrice());
@@ -50,7 +44,7 @@ public class OfferMapper implements CommonMapper<Offer, OfferDto> {
         offer.setOfferType(offerDto.getOfferType());
         offer.setFavouritedBy(offerDto.getFavouritedBy().stream().map(userService::readById).collect(Collectors.toSet()));
         if (offerDto.getOfferInfo() != null)
-            offer.setOfferInfo(informationPartService.readById(new URI(offerDto.getOfferInfo())));
+            offer.setOfferInfo(informationPartService.readById(offerDto.getOfferInfo()));
 
         return offer;
     }

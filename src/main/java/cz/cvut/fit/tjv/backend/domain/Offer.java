@@ -71,6 +71,10 @@ public class Offer implements CommonEntity<Long> {
         return isClosed;
     }
 
+    public boolean isOpen() {
+        return !isClosed;
+    }
+
     public void setClosed(boolean closed) {
         isClosed = closed;
     }
@@ -97,5 +101,20 @@ public class Offer implements CommonEntity<Long> {
 
     public void setOfferInfo(InformationPart offerInfo) {
         this.offerInfo = offerInfo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Offer offer = (Offer) o;
+
+        return getId() != null ? getId().equals(offer.getId()) : offer.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

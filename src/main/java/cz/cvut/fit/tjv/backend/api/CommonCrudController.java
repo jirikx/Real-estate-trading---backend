@@ -26,11 +26,11 @@ public abstract class CommonCrudController<Entity extends CommonEntity<ID>, Dto,
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Dto dto) throws URISyntaxException {
+    public void create(@RequestBody Dto dto) {
         try {
             service.create(mapper.toEntity(dto));
-        } catch (EntityExistsException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't create duplicated entity.");
+        } catch (EntityExistsException|NoSuchElementException e ) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't create this entity.");
         }
     }
 
@@ -68,6 +68,8 @@ public abstract class CommonCrudController<Entity extends CommonEntity<ID>, Dto,
             service.delete(id);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't delete nonexistent entity.");
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Can't delete entity which is used."); //This could be solved better, but let's just forbid user from doing this
         }
     }
 }

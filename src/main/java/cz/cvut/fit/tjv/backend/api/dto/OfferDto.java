@@ -1,10 +1,7 @@
 package cz.cvut.fit.tjv.backend.api.dto;
 
-import cz.cvut.fit.tjv.backend.domain.InformationPart;
 import cz.cvut.fit.tjv.backend.domain.OfferType;
-import cz.cvut.fit.tjv.backend.domain.User;
 
-import javax.persistence.*;
 import java.util.Set;
 
 public class OfferDto {
@@ -14,7 +11,7 @@ public class OfferDto {
     private boolean isClosed;
     private OfferType offerType;
     private Set<Long> favouritedBy;
-    private String offerInfo;
+    private Long offerInfo;
 
     public OfferDto() {}
 
@@ -66,11 +63,11 @@ public class OfferDto {
         this.favouritedBy = favouritedBy;
     }
 
-    public String getOfferInfo() {
+    public Long getOfferInfo() {
         return offerInfo;
     }
 
-    public void setOfferInfo(String offerInfo) {
+    public void setOfferInfo(Long offerInfo) {
         this.offerInfo = offerInfo;
     }
 }

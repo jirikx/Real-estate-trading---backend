@@ -10,5 +10,5 @@ import java.util.stream.Collectors;
 public interface CommonMapper<Entity, Dto> {
     public Dto toDto(Entity entity);
 
-    public Entity toEntity(Dto dto) throws URISyntaxException;
+    public Entity toEntity(Dto dto);
 }

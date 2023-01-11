@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.net.URI;
 
 @Repository
-public interface InformationPartRepository extends CrudRepository<InformationPart, URI> {
+public interface InformationPartRepository extends CrudRepository<InformationPart, Long> {
 }

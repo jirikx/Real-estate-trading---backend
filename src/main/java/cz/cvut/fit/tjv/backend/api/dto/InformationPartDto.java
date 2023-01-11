@@ -1,25 +1,30 @@
 package cz.cvut.fit.tjv.backend.api.dto;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.net.URI;
-import java.sql.Date;
-
 public class InformationPartDto {
-    private String uri;
+    private Long uri;
+    private Long offerId;
     private String creationTime;
     private String street;
-    private String postalCode;
+    private Long postalCode;
     private String moveInDate;
     private Long acreage;
 
     public InformationPartDto() {}
 
-    public String getUri() {
+    public Long getUri() {
         return uri;
     }
 
-    public void setUri(String uri) {
+    public void setUri(Long uri) {
         this.uri = uri;
+    }
+
+    public Long getOfferId() {
+        return offerId;
+    }
+
+    public void setOfferId(Long offerId) {
+        this.offerId = offerId;
     }
 
     public String getCreationTime() {
@@ -38,11 +43,11 @@ public class InformationPartDto {
         this.street = street;
     }
 
-    public String getPostalCode() {
+    public Long getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
+    public void setPostalCode(Long postalCode) {
         this.postalCode = postalCode;
     }
 

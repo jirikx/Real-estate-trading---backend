@@ -1,23 +1,22 @@
 package cz.cvut.fit.tjv.backend.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import java.net.URI;
 import java.sql.Date;
 
 @Entity
-public class InformationPart implements CommonEntity<URI> {
+public class InformationPart implements CommonEntity<Long> {
     @Id
-    private URI uri;
+    private Long uri;
+    private Long offerId;
     private Date creationTime;
     private String street;
-    private String postalCode;
+    private Long postalCode;
     private Date moveInDate;
     private Long acreage;
 
-    public InformationPart(URI uri, Date creationTime, String street, String postalCode, Date moveInDate, Long acreage) {
+    public InformationPart(Long uri, Date creationTime, String street, Long postalCode, Date moveInDate, Long acreage) {
         this.uri = uri;
         this.creationTime = creationTime;
         this.street = street;
@@ -26,23 +25,31 @@ public class InformationPart implements CommonEntity<URI> {
         this.acreage = acreage;
     }
 
-    public InformationPart(URI uri) {
+    public InformationPart(Long uri) {
         this.uri = uri;
     }
 
     public InformationPart() {}
 
     @Override
-    public URI getId() {
+    public Long getId() {
         return uri;
     }
 
-    public URI getUri() {
+    public Long getUri() {
         return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(Long uri) {
         this.uri = uri;
+    }
+
+    public Long getOfferId() {
+        return offerId;
+    }
+
+    public void setOfferId(Long offerId) {
+        this.offerId = offerId;
     }
 
     public Date getCreationTime() {
@@ -61,11 +68,11 @@ public class InformationPart implements CommonEntity<URI> {
         this.street = street;
     }
 
-    public String getPostalCode() {
+    public Long getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
+    public void setPostalCode(Long postalCode) {
         this.postalCode = postalCode;
     }
 
@@ -83,5 +90,20 @@ public class InformationPart implements CommonEntity<URI> {
 
     public void setAcreage(Long acreage) {
         this.acreage = acreage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        InformationPart info = (InformationPart) o;
+
+        return getId() != null ? getId().equals(info.getId()) : info.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return uri.hashCode();
     }
 }
