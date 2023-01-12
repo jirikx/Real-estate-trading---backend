@@ -26,9 +26,9 @@ public abstract class CommonCrudController<Entity extends CommonEntity<ID>, Dto,
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Dto dto) {
+    public ID create(@RequestBody Dto dto) {
         try {
-            service.create(mapper.toEntity(dto));
+            return service.create(mapper.toEntity(dto)).getId();
         } catch (EntityExistsException|NoSuchElementException e ) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't create this entity.");
         }

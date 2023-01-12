@@ -67,7 +67,7 @@ public class UserController extends CommonCrudController<User, UserDto, Long> {
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> readRichUsers() {
         UserService userService = (UserService) service;
-        return userService.usersWhoSoldPropertiesInMoreThanGivenPriceInPrague(20L).stream().map(mapper::toDto).collect(Collectors.toList());
+        return userService.usersWhoSoldPropertiesInMoreThanGivenPriceInPrague(20000000L).stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
 
