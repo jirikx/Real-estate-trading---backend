@@ -26,7 +26,8 @@ public class OfferMapper implements CommonMapper<Offer, OfferDto> {
         offerDto.setPrice(offer.getPrice());
         offerDto.setClosed(offerDto.isClosed());
         offerDto.setOfferType(offer.getOfferType());
-        offerDto.setFavouritedBy(offer.getFavouritedBy().stream().map(User::getId).collect(Collectors.toSet()));    //TODO: test this
+        if (offer.getFavouritedBy() != null)
+            offerDto.setFavouritedBy(offer.getFavouritedBy().stream().map(User::getId).collect(Collectors.toSet()));
         if (offer.getOfferInfo() != null)
             offerDto.setOfferInfo(offer.getOfferInfo().getUri());
 
@@ -42,7 +43,8 @@ public class OfferMapper implements CommonMapper<Offer, OfferDto> {
 
         offer.setClosed(offerDto.isClosed());
         offer.setOfferType(offerDto.getOfferType());
-        offer.setFavouritedBy(offerDto.getFavouritedBy().stream().map(userService::readById).collect(Collectors.toSet()));
+        if (offerDto.getFavouritedBy() != null)
+            offer.setFavouritedBy(offerDto.getFavouritedBy().stream().map(userService::readById).collect(Collectors.toSet()));
         if (offerDto.getOfferInfo() != null)
             offer.setOfferInfo(informationPartService.readById(offerDto.getOfferInfo()));
 

@@ -20,7 +20,8 @@ public class Offer implements CommonEntity<Long> {
     private OfferType offerType;
     @ManyToMany(mappedBy = "favouriteOffers")
     private Set<User> favouritedBy;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "offer_info_id")
     private InformationPart offerInfo;
 
     public Offer(Long id, User author, Long price) {

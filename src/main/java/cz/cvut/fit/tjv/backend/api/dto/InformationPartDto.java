@@ -2,7 +2,7 @@ package cz.cvut.fit.tjv.backend.api.dto;
 
 public class InformationPartDto {
     private Long uri;
-    private Long offerId;
+    private Long offer;
     private String creationTime;
     private String street;
     private Long postalCode;
@@ -19,12 +19,12 @@ public class InformationPartDto {
         this.uri = uri;
     }
 
-    public Long getOfferId() {
-        return offerId;
+    public Long getOffer() {
+        return offer;
     }
 
-    public void setOfferId(Long offerId) {
-        this.offerId = offerId;
+    public void setOffer(Long offer) {
+        this.offer = offer;
     }
 
     public String getCreationTime() {

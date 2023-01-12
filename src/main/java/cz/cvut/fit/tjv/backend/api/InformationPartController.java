@@ -15,7 +15,7 @@ import java.net.URI;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("${apiPrefix}/infopart")
+@RequestMapping("${apiPrefix}/infoparts")
 public class InformationPartController extends CommonCrudController<InformationPart, InformationPartDto, Long> {
     OfferService offerService;
 
@@ -30,7 +30,7 @@ public class InformationPartController extends CommonCrudController<InformationP
     public void create(@RequestBody InformationPartDto dto) {
         try {
             InformationPart informationPart = mapper.toEntity(dto);
-            offerService.readById(dto.getOfferId()).setOfferInfo(informationPart);    //Check if offer exists and update its information part
+            offerService.readById(dto.getOffer()).setOfferInfo(informationPart);    //Check if offer exists and update its information part
             service.create(informationPart);
         } catch (EntityExistsException | NoSuchElementException e ) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't create this entity.");

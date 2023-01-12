@@ -19,7 +19,7 @@ public class InformationPartMapper implements CommonMapper<InformationPart, Info
     public InformationPartDto toDto(InformationPart informationPart) {
         InformationPartDto informationPartDto = new InformationPartDto();
         informationPartDto.setUri(informationPart.getUri());
-        informationPartDto.setOfferId(informationPart.getOfferId());
+        informationPartDto.setOffer(informationPart.getOffer().getId());
         informationPartDto.setCreationTime(informationPart.getCreationTime().toString());
         informationPartDto.setStreet(informationPart.getStreet());
         informationPartDto.setPostalCode(informationPart.getPostalCode());
@@ -30,8 +30,12 @@ public class InformationPartMapper implements CommonMapper<InformationPart, Info
     }
 
     public InformationPart toEntity(InformationPartDto informationPartDto) {
-        InformationPart informationPart = new InformationPart(informationPartDto.getUri());
-        informationPart.setOfferId(informationPartDto.getOfferId());
+        InformationPart informationPart;
+        if (informationPartDto.getUri() == null)
+            informationPart = new InformationPart(offerService.readById(informationPartDto.getOffer()));
+        else
+            informationPart = new InformationPart(informationPartDto.getUri(), offerService.readById(informationPartDto.getOffer()));
+
         informationPart.setCreationTime(Date.valueOf(informationPartDto.getCreationTime()));
         informationPart.setStreet(informationPartDto.getStreet());
         informationPart.setPostalCode(informationPartDto.getPostalCode());

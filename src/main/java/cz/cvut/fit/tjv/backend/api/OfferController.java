@@ -51,4 +51,11 @@ public class OfferController extends CommonCrudController<Offer, OfferDto, Long>
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't open nonexistent offer.");
         }
     }
+
+    @GetMapping("/max")
+    @ResponseStatus(HttpStatus.OK)
+    public Long maximalOfferId() {
+        OfferService offerService = (OfferService) service;
+        return offerService.maximalOfferId();
+    }
 }

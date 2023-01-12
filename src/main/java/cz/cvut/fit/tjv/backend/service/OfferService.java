@@ -29,4 +29,9 @@ public class OfferService extends CommonCrudService<Offer, Long> {
         Iterable<Offer> it = crudRepository.findAll();
         return StreamSupport.stream(it.spliterator(), false).filter(Offer::isOpen).collect(Collectors.toSet());
     }
+
+    public Long maximalOfferId() {
+        OfferRepository offerRepository = (OfferRepository) crudRepository;
+        return offerRepository.maximalOfferId();
+    }
 }

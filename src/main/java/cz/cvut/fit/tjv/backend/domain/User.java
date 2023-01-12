@@ -20,7 +20,9 @@ public class User implements CommonEntity<Long> {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "offer_id")
     )
-    Set<Offer> favouriteOffers;
+    private Set<Offer> favouriteOffers;
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private Set<Offer> createdOffers;
 
     public User(Long id, String realName, String email) {
         this.id = id;
@@ -76,6 +78,13 @@ public class User implements CommonEntity<Long> {
         favouriteOffers.remove(Objects.requireNonNull(offer));
     }
 
+    public Set<Offer> getCreatedOffers() {
+        return createdOffers;
+    }
+
+    public void setCreatedOffers(Set<Offer> createdOffers) {
+        this.createdOffers = createdOffers;
+    }
 
     @Override
     public boolean equals(Object o) {
