@@ -27,11 +27,11 @@ public class InformationPartController extends CommonCrudController<InformationP
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Override
-    public Long create(@RequestBody InformationPartDto dto) {
+    public void create(@RequestBody InformationPartDto dto) {
         try {
             InformationPart informationPart = mapper.toEntity(dto);
             offerService.readById(dto.getOffer()).setOfferInfo(informationPart);    //Check if offer exists and update its information part
-            return service.create(informationPart).getUri();
+            service.create(informationPart).getUri();
         } catch (EntityExistsException | NoSuchElementException e ) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't create this entity.");
         }
