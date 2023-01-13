@@ -70,5 +70,12 @@ public class UserController extends CommonCrudController<User, UserDto, Long> {
         return userService.usersWhoSoldPropertiesInMoreThanGivenPriceInPrague(20000000L).stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
+    @GetMapping("/max")
+    @ResponseStatus(HttpStatus.OK)
+    public Long maximalId() {
+        UserService userService = (UserService) service;
+        return userService.maximalId();
+    }
+
 
 }

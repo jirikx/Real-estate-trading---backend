@@ -13,4 +13,7 @@ import java.util.Collection;
 public interface UserRepository extends CrudRepository<User, Long> {
     @Query(value = "select o from Offer o where :user_id member of o.favouritedBy")
     Collection<Offer> favouriteOffersFromUser(@Param("user_id") User user);
+
+    @Query(value = "select max(id) as max_id from User ")
+    public Long maximalId();
 }

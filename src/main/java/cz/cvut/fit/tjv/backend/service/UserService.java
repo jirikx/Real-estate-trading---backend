@@ -60,4 +60,9 @@ public class UserService extends CommonCrudService<User, Long> {
 
         return usersWhoSold;
     }
+
+    public Long maximalId() {
+        UserRepository userRepository = (UserRepository) crudRepository;
+        return userRepository.maximalId();
+    }
 }
