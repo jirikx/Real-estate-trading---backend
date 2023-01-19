@@ -18,6 +18,7 @@ public class UserDtoTest {
 
     @Test
     void dtoConverterTest() {
+        testUserRepository.deleteAll();
         User testUser = testUserRepository.save(new User("Jan Novak", "jan@novak.cz"));
         Iterable<User> foundUsers = testUserRepository.findAll();
         User foundUser = foundUsers.iterator().next();

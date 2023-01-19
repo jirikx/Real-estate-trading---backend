@@ -17,8 +17,19 @@ public class UserDto {
         this.favouriteOffers = favouriteOffers;
     }
 
+    public UserDto(Long id, String realName, String email) {
+        this.id = id;
+        this.realName = realName;
+        this.email = email;
+    }
+
     public UserDto(Long id, String realName, String email, Collection<Long> myOffers) {
         this.id = id;
+        this.realName = realName;
+        this.email = email;
+    }
+
+    public UserDto(String realName, String email) {
         this.realName = realName;
         this.email = email;
     }

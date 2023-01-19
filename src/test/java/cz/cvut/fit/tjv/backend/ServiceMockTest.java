@@ -19,11 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class ServiceMockTest {
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    OfferService offerService;
+    private OfferService offerService;
     @MockBean
-    OfferRepository offerRepository;
+    private OfferRepository offerRepository;
     @Test
     void usersWhoSoldPropertiesInMoreThanGivenPriceInPragueTest() {
         User u = new User(1L, "Tom", "tom@email.cz");
@@ -35,5 +35,6 @@ public class ServiceMockTest {
         Mockito.when(offerRepository.findAll()).thenReturn(List.of(o));
         var col = userService.usersWhoSoldPropertiesInMoreThanGivenPriceInPrague(999L);
         assertEquals(col.size(), 1);
+        assertEquals(col.iterator().next().getRealName(), o.getAuthor().getRealName());
     }
 }

@@ -7,6 +7,7 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 /**
  * Common class for CRUD operations with entities
