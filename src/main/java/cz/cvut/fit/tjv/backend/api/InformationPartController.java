@@ -6,6 +6,9 @@ import cz.cvut.fit.tjv.backend.domain.InformationPart;
 import cz.cvut.fit.tjv.backend.domain.Offer;
 import cz.cvut.fit.tjv.backend.service.InformationPartService;
 import cz.cvut.fit.tjv.backend.service.OfferService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,6 +29,11 @@ public class InformationPartController extends CommonCrudController<InformationP
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Create a new information part for some offer")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Information part created"),
+        @ApiResponse(responseCode = "404", description = "Can't create this entity"),
+    })
     @Override
     public void create(@RequestBody InformationPartDto dto) {
         try {
